@@ -15,7 +15,7 @@ namespace TrashCollector.Web.Models
         public string City { get; set; }
         public string StateAbbreviation { get; set; }
         public int ZipCode { get; set; }
-        [ForeignKey(nameof(UserId))]
+        [ForeignKey(nameof(User))]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
     }
