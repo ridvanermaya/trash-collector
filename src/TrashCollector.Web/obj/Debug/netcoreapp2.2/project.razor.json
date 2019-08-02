@@ -2968,6 +2968,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views/Customer/Create.cshtml",
+      "TargetPath": "Views/Customer/Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Areas/Identity/Pages/_ViewStart.cshtml",
       "TargetPath": "Areas/Identity/Pages/_ViewStart.cshtml",
       "FileKind": "mvc"
@@ -2985,6 +2990,11 @@
     {
       "FilePath": "Views/Shared/_CookieConsentPartial.cshtml",
       "TargetPath": "Views/Shared/_CookieConsentPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views/Customer/Delete.cshtml",
+      "TargetPath": "Views/Customer/Delete.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3018,6 +3028,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views/Customer/Edit.cshtml",
+      "TargetPath": "Views/Customer/Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views/_ViewStart.cshtml",
       "TargetPath": "Views/_ViewStart.cshtml",
       "FileKind": "mvc"
@@ -3030,6 +3045,16 @@
     {
       "FilePath": "Areas/Identity/Pages/_ViewImports.cshtml",
       "TargetPath": "Areas/Identity/Pages/_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views/Customer/Details.cshtml",
+      "TargetPath": "Views/Customer/Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views/Customer/Index.cshtml",
+      "TargetPath": "Views/Customer/Index.cshtml",
       "FileKind": "mvc"
     },
     {
