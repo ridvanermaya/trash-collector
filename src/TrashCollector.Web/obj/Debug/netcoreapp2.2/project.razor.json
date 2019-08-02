@@ -2943,6 +2943,16 @@
   "RootNamespace": "TrashCollector.Web",
   "Documents": [
     {
+      "FilePath": "Views/Employee/Delete.cshtml",
+      "TargetPath": "Views/Employee/Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views/Employee/Edit.cshtml",
+      "TargetPath": "Views/Employee/Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Areas/Identity/Pages/Account/Login.cshtml",
       "TargetPath": "Areas/Identity/Pages/Account/Login.cshtml",
       "FileKind": "mvc"
@@ -3038,6 +3048,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views/Employee/Details.cshtml",
+      "TargetPath": "Views/Employee/Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Areas/Identity/Pages/Account/_ViewImports.cshtml",
       "TargetPath": "Areas/Identity/Pages/Account/_ViewImports.cshtml",
       "FileKind": "mvc"
@@ -3045,6 +3060,16 @@
     {
       "FilePath": "Areas/Identity/Pages/_ViewImports.cshtml",
       "TargetPath": "Areas/Identity/Pages/_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views/Employee/Create.cshtml",
+      "TargetPath": "Views/Employee/Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views/Employee/Index.cshtml",
+      "TargetPath": "Views/Employee/Index.cshtml",
       "FileKind": "mvc"
     },
     {

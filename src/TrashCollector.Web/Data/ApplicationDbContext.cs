@@ -15,5 +15,6 @@ namespace TrashCollector.Web.Data
         }
         public DbSet<TrashCollector.Web.Models.DAddress> DAddress { get; set; }
         public DbSet<TrashCollector.Web.Models.DCustomer> DCustomer { get; set; }
+        public DbSet<TrashCollector.Web.Models.DEmployee> DEmployee { get; set; }
     }
 }
