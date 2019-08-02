@@ -2948,6 +2948,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views/Address/Create.cshtml",
+      "TargetPath": "Views/Address/Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views/Address/Index.cshtml",
+      "TargetPath": "Views/Address/Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Areas/Identity/Pages/Account/Register.cshtml",
       "TargetPath": "Areas/Identity/Pages/Account/Register.cshtml",
       "FileKind": "mvc"
@@ -2978,6 +2988,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views/Address/Details.cshtml",
+      "TargetPath": "Views/Address/Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views/Address/Edit.cshtml",
+      "TargetPath": "Views/Address/Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views/_ViewImports.cshtml",
       "TargetPath": "Views/_ViewImports.cshtml",
       "FileKind": "mvc"
@@ -2990,6 +3010,11 @@
     {
       "FilePath": "Views/Home/Index.cshtml",
       "TargetPath": "Views/Home/Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views/Address/Delete.cshtml",
+      "TargetPath": "Views/Address/Delete.cshtml",
       "FileKind": "mvc"
     },
     {

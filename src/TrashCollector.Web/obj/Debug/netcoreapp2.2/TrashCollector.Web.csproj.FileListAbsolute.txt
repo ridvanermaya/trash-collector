@@ -31,3 +31,9 @@
 /Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/TrashCollector.Web.dll
 /Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/TrashCollector.Web.pdb
 /Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/TrashCollector.Web.csproj.CopyComplete
+/Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Areas/Identity/Pages/Account/Login.g.cshtml.cs
+/Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Areas/Identity/Pages/Account/Logout.g.cshtml.cs
+/Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Areas/Identity/Pages/Account/Register.g.cshtml.cs
+/Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Areas/Identity/Pages/Account/_ViewImports.g.cshtml.cs
+/Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Areas/Identity/Pages/_ValidationScriptsPartial.g.cshtml.cs
+/Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Areas/Identity/Pages/_ViewImports.g.cshtml.cs

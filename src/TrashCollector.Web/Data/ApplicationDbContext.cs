@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TrashCollector.Web.Models;
 
 namespace TrashCollector.Web.Data
 {
@@ -12,5 +13,6 @@ namespace TrashCollector.Web.Data
             : base(options)
         {
         }
+        public DbSet<TrashCollector.Web.Models.DAddress> DAddress { get; set; }
     }
 }
