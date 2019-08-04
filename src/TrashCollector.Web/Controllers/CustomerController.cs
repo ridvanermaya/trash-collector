@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -61,12 +62,15 @@ namespace TrashCollector.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                dCustomer.UserId = userId;
                 _context.Add(dCustomer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", dCustomer.UserId);
-            return View(dCustomer);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Customer/Edit/5

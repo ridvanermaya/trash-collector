@@ -47,3 +47,8 @@
 /Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Views/Customer/Details.g.cshtml.cs
 /Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Views/Customer/Edit.g.cshtml.cs
 /Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Views/Customer/Index.g.cshtml.cs
+/Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Views/Employee/Create.g.cshtml.cs
+/Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Views/Employee/Delete.g.cshtml.cs
+/Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Views/Employee/Details.g.cshtml.cs
+/Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Views/Employee/Edit.g.cshtml.cs
+/Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Views/Employee/Index.g.cshtml.cs

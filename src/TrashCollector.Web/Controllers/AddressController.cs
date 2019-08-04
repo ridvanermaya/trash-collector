@@ -63,10 +63,10 @@ namespace TrashCollector.Web.Controllers
             {
                 _context.Add(dAddress);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Create", "Customer");
             }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", dAddress.UserId);
-            return View(dAddress);
+            return RedirectToAction("Create", "Customer");
         }
 
         // GET: Address/Edit/5

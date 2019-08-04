@@ -78,7 +78,7 @@ namespace TrashCollector.Web.Areas.Identity.Pages.Account
             }
             if(!roles.Any(x => x.Name.Equals("Employee")))
             {
-                await _roleManager.CreateAsync( new IdentityRole() { Name = "Employeee"});
+                await _roleManager.CreateAsync( new IdentityRole() { Name = "Employee"});
             }
         }
 
@@ -121,7 +121,7 @@ namespace TrashCollector.Web.Areas.Identity.Pages.Account
                     }
                     if(Input.Role.Equals("Employee"))
                     {
-                        return RedirectToAction("Create", "Customer");
+                        return RedirectToAction("Create", "Employee");
                     }
                     
                 }
