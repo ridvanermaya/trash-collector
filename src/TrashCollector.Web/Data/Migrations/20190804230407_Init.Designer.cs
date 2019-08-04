@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Web.Data;
 
-namespace TrashCollector.Web.Data.Migrations
+namespace TrashCollector.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190802211108_Customer-Employee-AddressTables")]
-    partial class CustomerEmployeeAddressTables
+    [Migration("20190804230407_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -214,7 +214,9 @@ namespace TrashCollector.Web.Data.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("PickUpDay");
+                    b.Property<DateTime?>("OneTimePickUpDate");
+
+                    b.Property<int>("PickUpDay");
 
                     b.Property<string>("UserId");
 

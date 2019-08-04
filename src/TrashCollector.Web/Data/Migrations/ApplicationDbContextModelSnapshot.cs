@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Web.Data;
 
-namespace TrashCollector.Web.Data.Migrations
+namespace TrashCollector.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -212,7 +212,9 @@ namespace TrashCollector.Web.Data.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("PickUpDay");
+                    b.Property<DateTime?>("OneTimePickUpDate");
+
+                    b.Property<int>("PickUpDay");
 
                     b.Property<string>("UserId");
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,10 +20,26 @@ namespace TrashCollector.Web.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Profile()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = await _context.DEmployee.FirstOrDefaultAsync(x => x.UserId == userId);
+
+            if(employee != null)
+            {
+                return RedirectToAction("Edit", new { id = employee.EmployeeId});
+            }
+            else
+            {
+                return RedirectToAction("Create");
+            }
+        }
+
         // GET: Employee
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.DEmployee.Include(d => d.User);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var applicationDbContext = _context.DEmployee.Include(d => d.User).Where(x => x.UserId == userId);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -34,9 +51,10 @@ namespace TrashCollector.Web.Controllers
                 return NotFound();
             }
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dEmployee = await _context.DEmployee
                 .Include(d => d.User)
-                .FirstOrDefaultAsync(m => m.EmployeeId == id);
+                .FirstOrDefaultAsync(x => x.EmployeeId == id && x.UserId == userId);
             if (dEmployee == null)
             {
                 return NotFound();
@@ -48,7 +66,6 @@ namespace TrashCollector.Web.Controllers
         // GET: Employee/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 

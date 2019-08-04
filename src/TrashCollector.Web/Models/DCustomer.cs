@@ -10,10 +10,14 @@ namespace TrashCollector.Web.Models
     {
         [Key]
         public int CustomerId { get; set; }
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [Display(Name = "Pickup Day")]
         public DayOfWeek PickUpDay { get; set; }
-        public DateTime? PickUpDate { get; set; }
+        [Display(Name = "One Time Pick Up Date")]
+        public DateTime? OneTimePickUpDate { get; set; }
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
