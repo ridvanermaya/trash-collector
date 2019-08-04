@@ -20,10 +20,33 @@ namespace TrashCollector.Web.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Profile()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var address = await _context.DAddress.FirstOrDefaultAsync(x => x.UserId == userId);
+
+            if(address == null)
+            {
+                return RedirectToAction("Create", "Address");
+            }
+
+            var customer = await _context.DCustomer.FirstOrDefaultAsync(x => x.UserId == userId);
+
+            if(customer != null)
+            {
+                return RedirectToAction("Edit", new { id = customer.CustomerId});
+            }
+            else
+            {
+                return RedirectToAction("Create");
+            }
+        }
+
         // GET: Customer
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.DCustomer.Include(d => d.User);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var applicationDbContext = _context.DCustomer.Include(d => d.User).Where(x => x.UserId == userId);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,9 +58,12 @@ namespace TrashCollector.Web.Controllers
                 return NotFound();
             }
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dCustomer = await _context.DCustomer
-                .Include(d => d.User)
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
+                .Include(x => x.User)
+                // So when you want to reach out someone else's information,
+                // The user won't be able to see
+                .FirstOrDefaultAsync(x => x.CustomerId == id && x.UserId == userId);
             if (dCustomer == null)
             {
                 return NotFound();
@@ -49,7 +75,6 @@ namespace TrashCollector.Web.Controllers
         // GET: Customer/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -80,8 +105,9 @@ namespace TrashCollector.Web.Controllers
             {
                 return NotFound();
             }
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var dCustomer = await _context.DCustomer.FindAsync(id);
+            var dCustomer = await _context.DCustomer.FirstOrDefaultAsync(x => x.CustomerId == id && x.UserId == userId);
             if (dCustomer == null)
             {
                 return NotFound();
@@ -95,7 +121,7 @@ namespace TrashCollector.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerId,FirstName,LastName,PickUpDay,UserId")] DCustomer dCustomer)
+        public async Task<IActionResult> Edit(int id, [Bind("CustomerId,FirstName,LastName,PickUpDay")] DCustomer dCustomer)
         {
             if (id != dCustomer.CustomerId)
             {
@@ -106,6 +132,7 @@ namespace TrashCollector.Web.Controllers
             {
                 try
                 {
+                    dCustomer.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     _context.Update(dCustomer);
                     await _context.SaveChangesAsync();
                 }
@@ -122,7 +149,6 @@ namespace TrashCollector.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", dCustomer.UserId);
             return View(dCustomer);
         }
 
@@ -134,9 +160,10 @@ namespace TrashCollector.Web.Controllers
                 return NotFound();
             }
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dCustomer = await _context.DCustomer
                 .Include(d => d.User)
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
+                .FirstOrDefaultAsync(x => x.CustomerId == id && x.UserId == userId);
             if (dCustomer == null)
             {
                 return NotFound();
@@ -150,7 +177,8 @@ namespace TrashCollector.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var dCustomer = await _context.DCustomer.FindAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var dCustomer = await _context.DCustomer.FirstOrDefaultAsync(x => x.CustomerId == id && x.UserId == userId);
             _context.DCustomer.Remove(dCustomer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

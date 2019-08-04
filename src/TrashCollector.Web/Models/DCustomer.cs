@@ -13,6 +13,7 @@ namespace TrashCollector.Web.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DayOfWeek PickUpDay { get; set; }
+        public DateTime? PickUpDate { get; set; }
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }

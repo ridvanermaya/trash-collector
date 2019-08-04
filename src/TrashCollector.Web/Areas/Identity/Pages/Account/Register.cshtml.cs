@@ -123,7 +123,6 @@ namespace TrashCollector.Web.Areas.Identity.Pages.Account
                     {
                         return RedirectToAction("Create", "Employee");
                     }
-                    
                 }
                 foreach (var error in result.Errors)
                 {
