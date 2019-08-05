@@ -1,0 +1,46 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    var isEmployee = User.IsInRole("Employee");
+    var isCustomer = User.IsInRole("Customer");
+    var signedIn = SignInManager.IsSignedIn(User);
+    var menuList = new List<dynamic>();
+
+    if(signedIn)
+    {
+        if(isCustomer)
+        {
+            menuList.Add(new {Title = "My Address", Controller = "Address", Action = "Index"});
+            menuList.Add(new {Title = "My Bill", Controller = "MyBill", Action = "Index"});
+            menuList.Add(new {Title = "Profile", Controller = "Customer", Action = "Index"});
+        }
+        if(isEmployee)
+        {
+            menuList.Add(new {Title = "Customers", Controller = "Customer", Action = "Index"});
+            menuList.Add(new {Title = "Profile", Controller = "Customer", Action = "Profile"});
+        }
+    }
+}
+<header>
+	<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+		<div class="container">
+			<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trash Collector</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+				<partial name="_LoginPartial" />
+				<ul class="navbar-nav flex-grow-1">
+				@foreach (var link in menuList)
+				{
+					<li class="nav-item">
+						<a class="nav-link text-dark" asp-area="" asp-controller="@link.Controller" asp-action="@link.Action">@link.Title</a>
+					</li>
+				}
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>

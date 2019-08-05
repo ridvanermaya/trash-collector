@@ -20,6 +20,14 @@ namespace TrashCollector.Web.Models
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}")]
         public DateTime? OneTimePickUpDate { get; set; }
+        [Display(Name = "Pickups Suspension Start Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}")]
+        public DateTime? SuspendPickupsStart { get; set; }
+        [Display(Name = "Pickups Suspension End Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}")]
+        public DateTime? SuspendPickupsEnd { get; set; }
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
