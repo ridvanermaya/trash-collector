@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,7 +23,8 @@ namespace TrashCollector.Web.Controllers
         // GET: Address
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.DAddress.Include(d => d.User);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var applicationDbContext = _context.DAddress.Include(d => d.User).Where(x => x.UserId == userId);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -33,10 +35,11 @@ namespace TrashCollector.Web.Controllers
             {
                 return NotFound();
             }
-
+            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dAddress = await _context.DAddress
                 .Include(d => d.User)
-                .FirstOrDefaultAsync(m => m.AddressId == id);
+                .FirstOrDefaultAsync(x => x.AddressId == id && x.UserId == userId);
             if (dAddress == null)
             {
                 return NotFound();
@@ -61,6 +64,7 @@ namespace TrashCollector.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                dAddress.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 _context.Add(dAddress);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Create", "Customer");
@@ -77,7 +81,8 @@ namespace TrashCollector.Web.Controllers
                 return NotFound();
             }
 
-            var dAddress = await _context.DAddress.FindAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var dAddress = await _context.DAddress.FirstOrDefaultAsync(x => x.AddressId == id && x.UserId == userId);
             if (dAddress == null)
             {
                 return NotFound();
@@ -102,6 +107,7 @@ namespace TrashCollector.Web.Controllers
             {
                 try
                 {
+                    dAddress.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     _context.Update(dAddress);
                     await _context.SaveChangesAsync();
                 }
@@ -130,9 +136,10 @@ namespace TrashCollector.Web.Controllers
                 return NotFound();
             }
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dAddress = await _context.DAddress
                 .Include(d => d.User)
-                .FirstOrDefaultAsync(m => m.AddressId == id);
+                .FirstOrDefaultAsync(x => x.AddressId == id && x.UserId == userId);
             if (dAddress == null)
             {
                 return NotFound();
@@ -146,7 +153,8 @@ namespace TrashCollector.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var dAddress = await _context.DAddress.FindAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var dAddress = await _context.DAddress.FirstOrDefaultAsync(x => x.AddressId == id && x.UserId == userId);
             _context.DAddress.Remove(dAddress);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

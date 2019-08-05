@@ -78,6 +78,9 @@ namespace TrashCollector.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                dEmployee.UserId = userId;
                 _context.Add(dEmployee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,7 +97,8 @@ namespace TrashCollector.Web.Controllers
                 return NotFound();
             }
 
-            var dEmployee = await _context.DEmployee.FindAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var dEmployee = await _context.DEmployee.FirstOrDefaultAsync(x => x.EmployeeId == id && x.UserId == userId);
             if (dEmployee == null)
             {
                 return NotFound();
@@ -119,6 +123,7 @@ namespace TrashCollector.Web.Controllers
             {
                 try
                 {
+                    dEmployee.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     _context.Update(dEmployee);
                     await _context.SaveChangesAsync();
                 }
@@ -147,9 +152,10 @@ namespace TrashCollector.Web.Controllers
                 return NotFound();
             }
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dEmployee = await _context.DEmployee
                 .Include(d => d.User)
-                .FirstOrDefaultAsync(m => m.EmployeeId == id);
+                .FirstOrDefaultAsync(x => x.EmployeeId == id && x.UserId == userId);
             if (dEmployee == null)
             {
                 return NotFound();
@@ -163,7 +169,8 @@ namespace TrashCollector.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var dEmployee = await _context.DEmployee.FindAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var dEmployee = await _context.DEmployee.FirstOrDefaultAsync(x => x.EmployeeId == id && x.UserId == userId);
             _context.DEmployee.Remove(dEmployee);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

@@ -16,7 +16,9 @@ namespace TrashCollector.Web.Models
         public string LastName { get; set; }
         [Display(Name = "Pickup Day")]
         public DayOfWeek PickUpDay { get; set; }
-        [Display(Name = "One Time Pick Up Date")]
+        [Display(Name = "One Time Pickup Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}")]
         public DateTime? OneTimePickUpDate { get; set; }
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }

@@ -36,6 +36,11 @@
                 <span asp-validation-for="PickUpDay" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="OneTimePickUpDate" class="control-label"></label>
+                <input asp-for="OneTimePickUpDate" class="form-control" type="Date" />
+                <span asp-validation-for="OneTimePickUpDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
