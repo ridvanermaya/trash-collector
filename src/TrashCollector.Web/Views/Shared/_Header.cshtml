@@ -12,13 +12,14 @@
         if(isCustomer)
         {
             menuList.Add(new {Title = "My Address", Controller = "Address", Action = "Index"});
-            menuList.Add(new {Title = "My Bill", Controller = "MyBill", Action = "Index"});
+            menuList.Add(new {Title = "My Bill", Controller = "Customer", Action = "MyBill"});
             menuList.Add(new {Title = "Profile", Controller = "Customer", Action = "Index"});
         }
         if(isEmployee)
         {
-            menuList.Add(new {Title = "Customers", Controller = "Customer", Action = "Index"});
-            menuList.Add(new {Title = "Profile", Controller = "Customer", Action = "Profile"});
+            menuList.Add(new {Title = "Customers", Controller = "Employee", Action = "Index"});
+            menuList.Add(new {Title = "Profile", Controller = "Employee", Action = "Profile"});
+			menuList.Add(new {Title = "Today's Pickups", Controller = "Employee", Action = "TodaysPickUps"});
         }
     }
 }

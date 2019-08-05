@@ -35,6 +35,33 @@ namespace TrashCollector.Web.Controllers
             }
         }
 
+        public async Task<IActionResult> TodaysPickUps()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var today = DateTime.Now.DayOfWeek;
+            var employee = await _context.DEmployee.FirstOrDefaultAsync(x => x.UserId == userId);
+            
+            var customers = _context.DCustomer.Include(d => d.User);
+            var todaysPickUpCustomers = new List<DCustomer>();
+
+            foreach(var customer in customers)
+            {
+                var address = await _context.DAddress.FirstOrDefaultAsync(x => x.UserId == customer.UserId);
+                if(address != null && (customer.PickUpDay == today && address.ZipCode == employee.ZipCode))
+                {
+                    todaysPickUpCustomers.Add(customer);
+                }
+            }
+            if(todaysPickUpCustomers == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(todaysPickUpCustomers);
+            }
+        }
+
         // GET: Employee
         public async Task<IActionResult> Index()
         {
