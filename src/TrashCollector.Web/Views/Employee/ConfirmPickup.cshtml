@@ -1,0 +1,28 @@
+@model TrashCollector.Web.Models.DCustomer
+
+@{
+    ViewData["Title"] = "Confirm Pickup";
+}
+
+<h3>Confirm Pickup for @Model.FirstName @Model.LastName</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ConfirmPickup">
+            <div class="form-group">
+                <label for="Message" class="control-label">Message</label>
+                <input name="Message" class="form-control" />
+            </div>
+            <button class="btn btn-outline-success" type="submit">Confirm Pickup</button>
+        </form> 
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

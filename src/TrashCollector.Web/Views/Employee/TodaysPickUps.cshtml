@@ -2,23 +2,35 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    var isConfirmed = Context.Request.Query.ContainsKey("confirmed");
 }
-<form asp-controller="Employee" asp-action="TodaysPickUps" method="GET">
-    <div class="form-group">
-    <label>Filter</label>
-    <select name="Day" class="form-control">
-        <option value="0">Today</option>
-        <option value="Monday">Monday</option>
-        <option value="Tuesday">Tuesday</option>
-        <option value="Wednesday">Wednesday</option>
-        <option value="Thursday">Thursday</option>
-        <option value="Friday">Friday</option>
-        <option value="Saturday">Saturday</option>
-        <option value="Sunday">Sunday</option>
-    </select>
+@if(isConfirmed){
+    <div class="alert alert-success">
+        You successfully confirmed pickup for the customer.
+    </div>
+}
+<div class="row" style="margin-left:0px;">
+    <div class="cl-md-4">
+        <form asp-controller="Employee" asp-action="TodaysPickUps" method="GET">
+            <div class="form-group">
+                <label>Filter By Day</label>
+                <select name="Day" class="form-control">
+                    <option value="0">Today</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>   
+            </div>
+            <button class="btn btn-primary" type="submit">Filter</button>
+        </form>
+    </div>
 </div>
-<button type="submit">Filter</button>
-</form>
+<br>
 <table class="table">
     <thead>
         <tr>
@@ -65,7 +77,7 @@
                 @Html.DisplayFor(modelItem => item.SuspendPickupsEnd)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CustomerId">Confirm Pick Up</a>
+                <a asp-action="ConfirmPickup" asp-route-id="@item.CustomerId">Confirm Pick Up</a>
             </td>
         </tr>
 }
@@ -80,3 +92,7 @@
     </tfoot>
 } 
 </table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
