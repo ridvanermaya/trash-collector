@@ -42,6 +42,15 @@ namespace TrashCollector.Web.Controllers
             }
         }
 
+        public async Task<IActionResult> MyBill()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = await _context.DCustomer.FirstOrDefaultAsync(x => x.UserId == userId);
+            var pickups = _context.DPickups.Where(x => x.CustomerId == customer.CustomerId);
+
+            return View(await pickups.ToListAsync());
+        }
+
         // GET: Customer
         public async Task<IActionResult> Index()
         {

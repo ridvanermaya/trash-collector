@@ -1,0 +1,61 @@
+@model IEnumerable<TrashCollector.Web.Models.DPickup>
+
+@{
+    ViewData["Title"] = "My Bill";
+    var subtotal = Model.Count() * 5;
+}
+
+<h4>My Pickups</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PickupDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <td>
+                Price
+            </td>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickupDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                $5
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    <h5>Subtotal: $@subtotal</h5>
+</div>
+<div>
+    <input class="btn btn-secondary" value="Pay Now" type="submit" asp-action=""></input>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
