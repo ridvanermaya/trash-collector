@@ -3,9 +3,22 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
-
+<form asp-controller="Employee" asp-action="TodaysPickUps" method="GET">
+    <div class="form-group">
+    <label>Filter</label>
+    <select name="Day" class="form-control">
+        <option value="0">Today</option>
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
+        <option value="Sunday">Sunday</option>
+    </select>
+</div>
+<button type="submit">Filter</button>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -52,10 +65,18 @@
                 @Html.DisplayFor(modelItem => item.SuspendPickupsEnd)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.CustomerId">Confirm Pick Up</a>
             </td>
         </tr>
 }
     </tbody>
+@if(!Model.Any()){
+   <tfoot>
+        <tr>
+            <td colspan="7">
+                There is no pickups for selected date.
+            </td>
+        </tr>
+    </tfoot>
+} 
 </table>

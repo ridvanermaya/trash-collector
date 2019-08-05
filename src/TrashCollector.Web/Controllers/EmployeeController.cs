@@ -25,9 +25,9 @@ namespace TrashCollector.Web.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = await _context.DEmployee.FirstOrDefaultAsync(x => x.UserId == userId);
 
-            if(employee != null)
+            if (employee != null)
             {
-                return RedirectToAction("Edit", new { id = employee.EmployeeId});
+                return RedirectToAction("Edit", new { id = employee.EmployeeId });
             }
             else
             {
@@ -35,31 +35,30 @@ namespace TrashCollector.Web.Controllers
             }
         }
 
-        public async Task<IActionResult> TodaysPickUps()
+        public async Task<IActionResult> TodaysPickUps([FromQuery(Name = "Day")]string day)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var today = DateTime.Now.DayOfWeek;
+            var selectedDay = DateTime.Now.DayOfWeek;
             var employee = await _context.DEmployee.FirstOrDefaultAsync(x => x.UserId == userId);
-            
-            var customers = _context.DCustomer.Include(d => d.User);
+
+            if (!string.IsNullOrEmpty(day))
+            {
+                selectedDay = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), day);
+            }
+
+            var customers = _context.DCustomer.Where(x => x.PickUpDay == selectedDay);
             var todaysPickUpCustomers = new List<DCustomer>();
 
-            foreach(var customer in customers)
+            foreach (var customer in customers)
             {
-                var address = await _context.DAddress.FirstOrDefaultAsync(x => x.UserId == customer.UserId);
-                if(address != null && (customer.PickUpDay == today && address.ZipCode == employee.ZipCode))
+                var address = await _context.DAddress.FirstOrDefaultAsync(x => x.UserId == customer.UserId && x.ZipCode == employee.ZipCode);
+                if (address != null)
                 {
                     todaysPickUpCustomers.Add(customer);
                 }
             }
-            if(todaysPickUpCustomers == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return View(todaysPickUpCustomers);
-            }
+            
+            return View(todaysPickUpCustomers);
         }
 
         // GET: Employee
