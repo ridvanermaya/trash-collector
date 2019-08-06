@@ -20,11 +20,11 @@ namespace TrashCollector.Web.Models
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}")]
         public DateTime? OneTimePickUpDate { get; set; }
-        [Display(Name = "Pickups Suspension Start Date")]
+        [Display(Name = "Suspension Start Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}")]
         public DateTime? SuspendPickupsStart { get; set; }
-        [Display(Name = "Pickups Suspension End Date")]
+        [Display(Name = "Suspension End Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}")]
         public DateTime? SuspendPickupsEnd { get; set; }

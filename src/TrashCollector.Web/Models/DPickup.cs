@@ -10,8 +10,11 @@ namespace TrashCollector.Web.Models
     {
         [Key]
         public int PickupId { get; set; }
+        [Display(Name = "Pickup Date")]
         public DateTime PickupDate { get; set; }
+        [Display(Name = "Customer Id")]
         public int CustomerId { get; set; }
+        [Display(Name = "Employee Id")]
         public int EmployeeId { get; set; }
         public string Message { get; set; }
     }

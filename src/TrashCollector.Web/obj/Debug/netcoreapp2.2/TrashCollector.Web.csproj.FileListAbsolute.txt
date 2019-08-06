@@ -56,3 +56,4 @@
 /Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Views/Employee/TodaysPickUps.g.cshtml.cs
 /Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Views/Employee/ConfirmPickup.g.cshtml.cs
 /Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Views/Customer/MyBill.g.cshtml.cs
+/Users/redone/git/DevCodeCamp/Week_08/Projects/trash-collector/src/TrashCollector.Web/obj/Debug/netcoreapp2.2/Razor/Views/Shared/_EmployeeLayout.g.cshtml.cs

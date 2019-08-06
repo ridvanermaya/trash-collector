@@ -10,9 +10,17 @@ namespace TrashCollector.Web.Controllers
 {
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
-            return View();
+            if(this.User.IsInRole("Employee"))
+            {
+                return RedirectToAction("TodaysPickUps", "Employee");
+            }
+            else {
+                return View();
+            }
+
         }
 
         public IActionResult Privacy()

@@ -27,7 +27,7 @@ namespace TrashCollector.Web.Controllers
 
             if (employee != null)
             {
-                return RedirectToAction("Edit", new { id = employee.EmployeeId });
+                return RedirectToAction("Index", new { id = employee.EmployeeId });
             }
             else
             {
@@ -40,13 +40,13 @@ namespace TrashCollector.Web.Controllers
             var customer = await _context.DCustomer.FirstOrDefaultAsync(x => x.CustomerId == id);
             if (customer == null)
             {
-                return NotFound("I didn't find the customer");
+                return NotFound("I couldn't find the customer");
             }
 
             var pickup = await _context.DPickups.FirstOrDefaultAsync(x => x.PickupDate == DateTime.Now.Date && x.CustomerId == id);
             if (pickup != null)
             {
-                return BadRequest("You can't do that. You have already picked up.");
+                return BadRequest("You have already picked up.");
             }
 
             return View(customer);
@@ -58,13 +58,13 @@ namespace TrashCollector.Web.Controllers
             var customer = await _context.DCustomer.FirstOrDefaultAsync(x => x.CustomerId == id);
             if (customer == null)
             {
-                return NotFound("I didn't find the customer");
+                return NotFound("I couldn't find the customer");
             }
 
             var pickup = await _context.DPickups.FirstOrDefaultAsync(x => x.PickupDate == DateTime.Now.Date && x.CustomerId == id);
             if (pickup != null)
             {
-                return BadRequest("You can't do that. You have already picked up.");
+                return BadRequest("You have already picked up.");
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -150,7 +150,16 @@ namespace TrashCollector.Web.Controllers
         // GET: Employee/Create
         public IActionResult Create()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context.DEmployee.Where(x => x.UserId == userId);
+            if(employee != null)
+            {
+                return RedirectToAction("Index", "Employee");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // POST: Employee/Create
