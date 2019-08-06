@@ -236,3 +236,9 @@ Getting Controller / MVC
 ~~~
 dotnet aspnet-codegenerator controller -name <ControllerName> -m <ModelName> -dc <FilePathForTheApplicationDb> --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
 ~~~
+
+Setting Defuault Connection String
+
+~~~
+DefaultConnection = "Server=localhost;Database=<DatabaseName>;User Id=<UserId>;Password=<Password>"
+~~~

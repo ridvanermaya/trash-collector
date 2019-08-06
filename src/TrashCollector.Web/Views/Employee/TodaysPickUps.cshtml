@@ -118,7 +118,8 @@ function searchAddress(){
     allAddress.map(x=>{
         var addressText = `${x.addressLine1}, ${x.addressLine2}, ${x.city}, ${x.stateAbbreviation}, ${x.zipCode}`;
         geocoder.geocode( { 'address': addressText}, function(results, status) {
-            if (status == 'OK') {
+            if (status == 'OK') 
+            {
                 map.setCenter(results[0].geometry.location);
                 var infowindow = new google.maps.InfoWindow({
                     content: addressText
@@ -130,12 +131,15 @@ function searchAddress(){
                 marker.addListener('click', function() {
                  infowindow.open(map, marker);
                 });
-            } else {
+            } 
+            else 
+            {
                 console.log(addressText + " not found.");
             }
         });
     });
 }
+
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Startup.GoogleMapApiKey&callback=searchAddress">
 </script>

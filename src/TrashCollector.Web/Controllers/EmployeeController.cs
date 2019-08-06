@@ -25,13 +25,14 @@ namespace TrashCollector.Web.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = await _context.DEmployee.FirstOrDefaultAsync(x => x.UserId == userId);
 
-            if (employee != null)
+            if (employee == null)
             {
-                return RedirectToAction("Index", new { id = employee.EmployeeId });
+                return RedirectToAction("Create","Employee");
+                
             }
             else
             {
-                return RedirectToAction("Create");
+                return RedirectToAction("Index", new { id = employee.EmployeeId });
             }
         }
 
@@ -152,9 +153,9 @@ namespace TrashCollector.Web.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.DEmployee.Where(x => x.UserId == userId);
-            if(employee != null)
+            if(employee == null)
             {
-                return RedirectToAction("Index", "Employee");
+                return RedirectToAction("Create", "Employee");
             }
             else
             {
@@ -167,7 +168,7 @@ namespace TrashCollector.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeId,FirstName,LastName,ZipCode,UserId")] DEmployee dEmployee)
+        public async Task<IActionResult> Create([Bind("EmployeeId,FirstName,LastName,ZipCode")] DEmployee dEmployee)
         {
             if (ModelState.IsValid)
             {
@@ -176,7 +177,7 @@ namespace TrashCollector.Web.Controllers
                 dEmployee.UserId = userId;
                 _context.Add(dEmployee);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", dEmployee.UserId);
             return View(dEmployee);

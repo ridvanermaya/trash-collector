@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TrashCollector.Web.Migrations
@@ -47,11 +48,27 @@ namespace TrashCollector.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Pickup",
+                columns: table => new
+                {
+                    PickupId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    PickupDate = table.Column<DateTime>(nullable: false),
+                    CustomerId = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: false),
+                    Message = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pickup", x => x.PickupId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -72,7 +89,7 @@ namespace TrashCollector.Web.Migrations
                 columns: table => new
                 {
                     AddressId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AddressTitle = table.Column<string>(nullable: true),
                     AddressLine1 = table.Column<string>(nullable: true),
                     AddressLine2 = table.Column<string>(nullable: true),
@@ -97,7 +114,7 @@ namespace TrashCollector.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -182,11 +199,13 @@ namespace TrashCollector.Web.Migrations
                 columns: table => new
                 {
                     CustomerId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     PickUpDay = table.Column<int>(nullable: false),
                     OneTimePickUpDate = table.Column<DateTime>(nullable: true),
+                    SuspendPickupsStart = table.Column<DateTime>(nullable: true),
+                    SuspendPickupsEnd = table.Column<DateTime>(nullable: true),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -205,7 +224,7 @@ namespace TrashCollector.Web.Migrations
                 columns: table => new
                 {
                     EmployeeId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     ZipCode = table.Column<int>(nullable: false),
@@ -236,7 +255,8 @@ namespace TrashCollector.Web.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -262,7 +282,8 @@ namespace TrashCollector.Web.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customer_UserId",
@@ -300,6 +321,9 @@ namespace TrashCollector.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Employee");
+
+            migrationBuilder.DropTable(
+                name: "Pickup");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

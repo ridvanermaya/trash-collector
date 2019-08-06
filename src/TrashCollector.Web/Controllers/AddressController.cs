@@ -64,10 +64,19 @@ namespace TrashCollector.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var customer = await _context.DCustomer.FirstOrDefaultAsync(x => x.UserId == userId);
                 dAddress.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 _context.Add(dAddress);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create", "Customer");
+                if(customer == null)
+                {
+                    return RedirectToAction("Create", "Customer");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", dAddress.UserId);
             return RedirectToAction("Create", "Customer");
@@ -107,6 +116,7 @@ namespace TrashCollector.Web.Controllers
             {
                 try
                 {
+                    // Reattaching the User Id to the user
                     dAddress.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     _context.Update(dAddress);
                     await _context.SaveChangesAsync();
@@ -135,7 +145,7 @@ namespace TrashCollector.Web.Controllers
             {
                 return NotFound();
             }
-
+            // Reattaching the userId to the user
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dAddress = await _context.DAddress
                 .Include(d => d.User)

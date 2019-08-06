@@ -34,11 +34,11 @@ namespace TrashCollector.Web.Controllers
 
             if (customer != null)
             {
-                return RedirectToAction("Edit", new { id = customer.CustomerId });
+                return RedirectToAction("Index");
             }
             else
             {
-                return RedirectToAction("Create");
+                return RedirectToAction("Create", "Customer");
             }
         }
 
@@ -115,9 +115,9 @@ namespace TrashCollector.Web.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.DCustomer.Where(x => x.UserId == userId);
 
-            if(customer != null)
+            if(customer == null)
             {
-                return RedirectToAction("Index", "Address");
+                return RedirectToAction("Create", "Customer");
             }
             else
             {
