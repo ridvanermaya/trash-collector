@@ -25,16 +25,16 @@ namespace TrashCollector.Web.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var address = await _context.DAddress.FirstOrDefaultAsync(x => x.UserId == userId);
 
-            if(address == null)
+            if (address == null)
             {
                 return RedirectToAction("Create", "Address");
             }
 
             var customer = await _context.DCustomer.FirstOrDefaultAsync(x => x.UserId == userId);
 
-            if(customer != null)
+            if (customer != null)
             {
-                return RedirectToAction("Edit", new { id = customer.CustomerId});
+                return RedirectToAction("Edit", new { id = customer.CustomerId });
             }
             else
             {
@@ -55,8 +55,33 @@ namespace TrashCollector.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var applicationDbContext = _context.DCustomer.Include(d => d.User).Where(x => x.UserId == userId);
-            return View(await applicationDbContext.ToListAsync());
+
+            var filteredCustomers = new List<DCustomer>();
+            var addressList = new List<DAddress>();
+
+            if (User.IsInRole("Employee"))
+            {
+                var employee = await _context.DEmployee.FirstOrDefaultAsync(x => x.UserId == userId);
+                if (employee == null) return NotFound("Employee information not found.");
+                var customers = await _context.DCustomer.ToListAsync();
+                foreach (var customer in customers)
+                {
+                    var address = await _context.DAddress.FirstOrDefaultAsync(x => x.UserId == customer.UserId && x.ZipCode == employee.ZipCode);
+                    if (address != null)
+                    {
+                        filteredCustomers.Add(customer);
+                        addressList.Add(address);
+                    }
+                }
+            }
+            else
+            {
+                filteredCustomers = await _context.DCustomer.Where(x => x.UserId == userId).ToListAsync();
+            }
+
+            ViewBag.AddressList = addressList;
+
+            return View(filteredCustomers);
         }
 
         // GET: Customer/Details/5
@@ -68,17 +93,20 @@ namespace TrashCollector.Web.Controllers
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var dCustomer = await _context.DCustomer
-                .Include(x => x.User)
-                // So when you want to reach out someone else's information,
-                // The user won't be able to see
-                .FirstOrDefaultAsync(x => x.CustomerId == id && x.UserId == userId);
-            if (dCustomer == null)
+            var isEmployee = User.IsInRole("Employee");
+            var customer = isEmployee
+            ? await _context.DCustomer.FirstOrDefaultAsync(x => x.CustomerId == id)
+            : await _context.DCustomer.FirstOrDefaultAsync(x => x.CustomerId == id && x.UserId == userId);
+
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(dCustomer);
+            var address = await _context.DAddress.FirstOrDefaultAsync(x => x.UserId == customer.UserId);
+            ViewBag.Address = $"{address.AddressLine1}, {address.AddressLine2}, {address.City}, {address.StateAbbreviation}, {address.ZipCode}";
+
+            return View(customer);
         }
 
         // GET: Customer/Create

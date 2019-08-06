@@ -93,6 +93,51 @@
 } 
 </table>
 
+@{
+    var addressList = (List<DAddress>)ViewBag.AddressList;
+}
+
+<h2>@addressList.Count customers on map</h2>
+<div class="card">
+    <div class="card-body">
+        <div id="map" style="display: block; width: 100%; height: 400px">
+        </div>
+    </div>
+</div>
+
+@if(addressList.Any()){
+<script>
+function searchAddress(){
+    var map = new google.maps.Map(document.getElementById('map'), {zoom: 10});
+
+    var allAddress = @Json.Serialize(addressList);
+    var geocoder = new google.maps.Geocoder;
+    allAddress.map(x=>{
+        var addressText = `${x.addressLine1}, ${x.addressLine2}, ${x.city}, ${x.stateAbbreviation}, ${x.zipCode}`;
+        geocoder.geocode( { 'address': addressText}, function(results, status) {
+            if (status == 'OK') {
+                map.setCenter(results[0].geometry.location);
+                var infowindow = new google.maps.InfoWindow({
+                    content: addressText
+                });
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+                marker.addListener('click', function() {
+                 infowindow.open(map, marker);
+                });
+            } else {
+                console.log(addressText + " not found.");
+            }
+        });
+    });
+}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=@Startup.GoogleMapApiKey&callback=searchAddress">
+</script>
+}
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

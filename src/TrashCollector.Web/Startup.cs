@@ -18,6 +18,7 @@ namespace TrashCollector.Web
 {
     public class Startup
     {
+        public static string GoogleMapApiKey = "";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,6 +29,8 @@ namespace TrashCollector.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            GoogleMapApiKey = Configuration.GetValue<string>("TRASH_COLLECTOR_GOOGLE_MAP_API_KEY");
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.

@@ -102,6 +102,7 @@ namespace TrashCollector.Web.Controllers
 
             var customers = _context.DCustomer.Where(x => x.PickUpDay == selectedDay);
             var todaysPickUpCustomers = new List<DCustomer>();
+            var addressList = new List<DAddress>();
 
             foreach (var customer in customers)
             {
@@ -109,8 +110,11 @@ namespace TrashCollector.Web.Controllers
                 if (address != null)
                 {
                     todaysPickUpCustomers.Add(customer);
+                    addressList.Add(address);
                 }
             }
+
+            ViewBag.AddressList = addressList;
 
             return View(todaysPickUpCustomers);
         }
