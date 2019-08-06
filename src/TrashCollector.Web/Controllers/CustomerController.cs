@@ -112,7 +112,17 @@ namespace TrashCollector.Web.Controllers
         // GET: Customer/Create
         public IActionResult Create()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.DCustomer.Where(x => x.UserId == userId);
+
+            if(customer != null)
+            {
+                return RedirectToAction("Index", "Address");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // POST: Customer/Create
